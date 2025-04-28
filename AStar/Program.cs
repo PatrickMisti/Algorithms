@@ -53,7 +53,7 @@ void Print(Graph graph)
 {
     var path = new List<Node>();
 
-    var current = graph.GetEnd();
+    var current = graph.End;
     while (current != null)
     {
         path.Add(current);

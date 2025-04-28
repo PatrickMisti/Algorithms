@@ -3,10 +3,8 @@ namespace Collections.Algorithms;
 
 internal static class AStar
 {
-    public static void CalcShortestPath(ref Node? start, ref Node? end)
+    public static void CalcShortestPath(ref Node start, ref Node end)
     {
-        if (start == null || end == null) return;
-
         PriorityQueue<Node, int> queue = new();
         start.Cost = 0;
 

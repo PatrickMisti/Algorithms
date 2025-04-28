@@ -5,8 +5,8 @@ namespace Collections.AStar;
 public class Graph
 {
     private readonly HashSet<Node> _nodes = new();
-    private Node? _start;
-    private Node? _end;
+    public Node? Start { get; set; }
+    public Node? End { get; set; }
 
     #region Get and Set Nodes functions
     
@@ -26,8 +26,6 @@ public class Graph
     public void RemoveEdge(Node node, Node other) => node.RemoveEdge(other);
 
     public List<Node> GetNodes() => _nodes.ToList();
-    public Node? GetStart() => _start;
-    public Node? GetEnd() => _end;
 
     #endregion
 
@@ -36,8 +34,8 @@ public class Graph
     public void SetVectors(Node start, Node end)
     {
         // set start and end point
-        _start = start;
-        _end = end;
+        Start = start;
+        End = end;
         // if distance is not set, it will calc from coordinates
         CalcDistance();
     }
@@ -48,7 +46,7 @@ public class Graph
         foreach (var node in _nodes)
             // only if x and y coordinates are not null
             if (node is { X: not null, Y: not null })
-                node.Distance = Math.Sqrt(Math.Pow((double)(node.X - _end!.X)!, 2) + Math.Pow((double)(node.Y - _end!.Y)!, 2));
+                node.Distance = Math.Sqrt(Math.Pow((double)(node.X - End!.X)!, 2) + Math.Pow((double)(node.Y - End!.Y)!, 2));
     }
 
     #endregion
@@ -57,15 +55,17 @@ public class Graph
 
     public bool FindShortestPath()
     {
+        var start = Start;
+        var end = End;
         // check if everything is set
-        if (_start == null || _end == null || _nodes.Count < 2)
+        if (start == null || end == null || _nodes.Count < 2)
         {
             Console.WriteLine("Start or end node is not set.");
             return false;
         }
 
         // calc the shortest path
-        Algorithms.AStar.CalcShortestPath(ref _start,ref _end);
+        Algorithms.AStar.CalcShortestPath(ref start, ref end);
         return true;
     }
 
@@ -76,7 +76,7 @@ public class Graph
     public List<Node> GetShortestPath()
     {
         var path = new List<Node>();
-        var current = GetEnd();
+        var current = End;
 
         while (current != null)
         {
