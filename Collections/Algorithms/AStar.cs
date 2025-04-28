@@ -29,10 +29,10 @@ internal static class AStar
             foreach (var edge in element.Edges)
             {
                 // get the other end of edge
-                var childNode = edge.To;
+                var childNode = (Node)edge.To!;
 
                 // if edge is null or edge to is obstacle or edge already visited, skip it
-                if (childNode == null || childNode.IsObstacle || childNode.IsVisited)
+                if (childNode.IsObstacle || childNode.IsVisited)
                     continue;
 
                 // calc the current element cost with edge cost

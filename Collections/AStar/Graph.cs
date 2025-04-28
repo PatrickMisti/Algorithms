@@ -14,7 +14,7 @@ public class Graph
     {
         if (!node.IsValid() || !other.IsValid()) return false;
 
-        node.AddEdge(other, cost);
+        node.AddEdges(other, cost);
         _nodes.Add(node);
         _nodes.Add(other);
 
@@ -23,7 +23,7 @@ public class Graph
 
     public void AddNodes(Node node, Node other) => AddNodes(node, other, 1);
 
-    public void RemoveEdge(Node node, Node other) => node.RemoveEdgeFrom(other);
+    public void RemoveEdge(Node node, Node other) => node.RemoveEdge(other);
 
     public List<Node> GetNodes() => _nodes.ToList();
     public Node? GetStart() => _start;

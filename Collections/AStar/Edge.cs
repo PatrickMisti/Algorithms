@@ -1,11 +1,13 @@
-﻿namespace Collections.AStar;
+﻿using Collections.Basis;
+
+namespace Collections.AStar;
 
 public class Edge
 {
-    public Node? From { get; set; }
-    public Node? To { get; set; }
+    public BaseNode? From { get; set; }
+    public BaseNode? To { get; set; }
     public int Cost { get; set; } = 0;
-    public Edge(int cost, Node? from, Node? to)
+    public Edge(int cost, BaseNode? from, BaseNode? to)
     {
         From = from;
         To = to;
