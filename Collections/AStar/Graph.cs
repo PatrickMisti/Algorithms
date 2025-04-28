@@ -104,32 +104,4 @@ public class Graph
     }
 
     #endregion
-
-    #region Test
-
-    public void Test()
-    {
-        var start = _nodes.FirstOrDefault(o => o is { X: 2, Y: 0 });
-        var end = _nodes.FirstOrDefault(o => o is { X: 2, Y: 4 });
-
-        var middle = _nodes.FirstOrDefault(o => o is { X: 2, Y: 2 });
-        var middle2 = _nodes.FirstOrDefault(o => o is { X: 3, Y: 2 });
-        var middle3 = _nodes.FirstOrDefault(o => o is { X: 1, Y: 2 });
-        var middle4 = _nodes.FirstOrDefault(o => o is { X: 4, Y: 2 });
-        var middle5 = _nodes.FirstOrDefault(o => o is { X: 0, Y: 2 });
-
-        if (start == null || end == null)
-        {
-            Console.WriteLine("Start or end node not found.");
-            return;
-        }
-        //middle2!.IsObstacle = true;
-        middle3!.IsObstacle = true;
-        middle4!.IsObstacle = true;
-        //middle5!.IsObstacle = true;
-        middle!.IsObstacle = true;
-        SetVectors(start, end);
-    }
-
-    #endregion
 }
