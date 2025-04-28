@@ -1,6 +1,4 @@
-﻿using Collections.Basis;
-
-namespace Collections.AStar;
+﻿namespace Collections.Basis;
 
 public class Edge
 {
