@@ -58,7 +58,7 @@ public class AStarGraph : Graph<ANode>
         }
 
         // calc the shortest path
-        Algo.CalcShortestPath(ref start, ref end);
+        Algo.AStarAlgo(ref start, ref end);
         return true;
     }
 

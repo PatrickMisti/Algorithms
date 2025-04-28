@@ -5,7 +5,7 @@ namespace Collections.Algorithms;
 
 internal static class Algo
 {
-    public static void CalcShortestPath(ref ANode start, ref ANode end)
+    public static void AStarAlgo(ref ANode start, ref ANode end)
     {
         PriorityQueue<BaseNode, int> queue = new();
         start.Cost = 0;
@@ -50,5 +50,10 @@ internal static class Algo
                 queue.Enqueue(childNode, childNode.Cost);
             }
         }
+    }
+
+    public static void DijkstraAlgo()
+    {
+
     }
 }
