@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace AStar.System;
+namespace Collections.AStar;
 
 public class Graph
 {

@@ -1,4 +1,4 @@
-﻿namespace AStar.System;
+﻿namespace Collections.AStar;
 
 public class Edge
 {

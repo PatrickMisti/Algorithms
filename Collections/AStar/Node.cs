@@ -1,4 +1,6 @@
-﻿namespace AStar.System;
+﻿using Collections.Basis;
+
+namespace Collections.AStar;
 
 public class Node : BaseNode
 {

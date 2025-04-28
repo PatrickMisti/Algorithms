@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AStar", "AStar\AStar.csproj", "{EAD8D19A-7B17-4220-965C-B6A663894EAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dijkstra", "Dijkstra\Dijkstra.csproj", "{D2D09617-9B9E-4044-B7C8-46220144FE1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collections", "Collections\Collections.csproj", "{FFA65BC1-1768-4D50-A513-441CA5CB6139}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{EAD8D19A-7B17-4220-965C-B6A663894EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAD8D19A-7B17-4220-965C-B6A663894EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAD8D19A-7B17-4220-965C-B6A663894EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2D09617-9B9E-4044-B7C8-46220144FE1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D09617-9B9E-4044-B7C8-46220144FE1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D09617-9B9E-4044-B7C8-46220144FE1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D09617-9B9E-4044-B7C8-46220144FE1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFA65BC1-1768-4D50-A513-441CA5CB6139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFA65BC1-1768-4D50-A513-441CA5CB6139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFA65BC1-1768-4D50-A513-441CA5CB6139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFA65BC1-1768-4D50-A513-441CA5CB6139}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

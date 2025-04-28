@@ -1,6 +1,8 @@
-﻿using AStar.System;
+﻿
 
 #region For Grid with x and y
+
+using Collections.AStar;
 
 const int N = 5;
 Node[,] GenerateGrid()

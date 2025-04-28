@@ -1,7 +1,5 @@
-﻿using AStar.System;
-using System;
-using System.Collections.Generic;
-namespace AStar.Algorithms;
+﻿using Collections.AStar;
+namespace Collections.Algorithms;
 
 internal static class AStar
 {
