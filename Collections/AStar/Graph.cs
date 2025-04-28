@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Collections.Algorithms;
 
 namespace Collections.AStar;
 
@@ -65,7 +66,7 @@ public class Graph
         }
 
         // calc the shortest path
-        Algorithms.AStar.CalcShortestPath(ref start, ref end);
+        Algo.CalcShortestPath(ref start, ref end);
         return true;
     }
 
