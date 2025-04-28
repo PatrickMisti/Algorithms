@@ -31,6 +31,7 @@ public class BaseNode
         var item = Edges
             .ToList()
             .Find(opt => opt.From != null && opt.From.Equals(node));
+
         if (item == null) return false;
         return Edges.Remove(item);
     }
