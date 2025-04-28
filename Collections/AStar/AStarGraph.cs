@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Collections.Algorithms;
+﻿using Collections.Algorithms;
 using Collections.Basis;
 
 namespace Collections.AStar;
