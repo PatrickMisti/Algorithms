@@ -8,17 +8,17 @@ internal static class Generator
     {
         AStarGraph graph = new AStarGraph();
 
-        var s = new Node("s", 45);
-        var e = new Node("e", 55);
-        var d = new Node("d", 48);
-        var f = new Node("f", 50);
-        var c = new Node("c", 38);
-        var a = new Node("a", 40);
-        var b = new Node("b", 35);
-        var i = new Node("i", 26);
-        var h = new Node("h", 20);
-        var g = new Node("g", 21);
-        var z = new Node("z", 0);
+        var s = new ANode("s", 45);
+        var e = new ANode("e", 55);
+        var d = new ANode("d", 48);
+        var f = new ANode("f", 50);
+        var c = new ANode("c", 38);
+        var a = new ANode("a", 40);
+        var b = new ANode("b", 35);
+        var i = new ANode("i", 26);
+        var h = new ANode("h", 20);
+        var g = new ANode("g", 21);
+        var z = new ANode("z", 0);
 
         graph.AddNodes(e, s, 10);
         graph.AddNodes(e, d, 9);
@@ -51,21 +51,21 @@ internal static class Generator
     
     const int N = 5;
 
-    internal static Node[,] GenerateGrid()
+    internal static ANode[,] GenerateGrid()
     {
-        var grid = new Node[N, N];
+        var grid = new ANode[N, N];
         for (int x = 0; x < N; x++)
         {
             for (int y = 0; y < N; y++)
             {
-                grid[x, y] = new Node(x, y);
+                grid[x, y] = new ANode(x, y);
             }
         }
 
         return grid;
     }
 
-    internal static AStarGraph ConvertGridToGraph(Node[,] grid)
+    internal static AStarGraph ConvertGridToGraph(ANode[,] grid)
     {
         var g = new AStarGraph();
 
@@ -98,13 +98,13 @@ internal static class Generator
 
     internal static void Print(AStarGraph graph)
     {
-        var path = new List<Node>();
+        var path = new List<ANode>();
 
         var current = graph.End;
         while (current != null)
         {
             path.Add(current);
-            current = (Node)current.Parent;
+            current = (ANode)current.Parent;
         }
 
         if (path.Count == 1)

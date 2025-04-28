@@ -1,12 +1,13 @@
 ﻿using Collections.AStar;
+using Collections.Basis;
 
 namespace Collections.Algorithms;
 
 internal static class Algo
 {
-    public static void CalcShortestPath(ref Node start, ref Node end)
+    public static void CalcShortestPath(ref ANode start, ref ANode end)
     {
-        PriorityQueue<Node, int> queue = new();
+        PriorityQueue<BaseNode, int> queue = new();
         start.Cost = 0;
 
         // add start node to queue with cost 0
@@ -28,7 +29,7 @@ internal static class Algo
             foreach (var edge in element.Edges)
             {
                 // get the other end of edge
-                var childNode = (Node)edge.To!;
+                var childNode = (ANode)edge.To!;
 
                 // if edge is null or edge to is obstacle or edge already visited, skip it
                 if (childNode.IsObstacle || childNode.IsVisited)

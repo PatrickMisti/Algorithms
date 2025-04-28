@@ -3,11 +3,11 @@ using Collections.Basis;
 
 namespace Collections.AStar;
 
-public class AStarGraph : Graph<Node>
+public class AStarGraph : Graph<ANode>
 {
     #region Get and Set Nodes functions
     
-    public bool AddNodes(Node node, Node other, int cost)
+    public bool AddNodes(ANode node, ANode other, int cost)
     {
         if (!node.IsValid() || !other.IsValid()) return false;
 
@@ -18,13 +18,13 @@ public class AStarGraph : Graph<Node>
         return true;
     }
 
-    public void AddNodes(Node node, Node other) => AddNodes(node, other, 1);
+    public void AddNodes(ANode node, ANode other) => AddNodes(node, other, 1);
 
     #endregion
 
     #region Start Condition for AStar
 
-    public void SetVectors(Node start, Node end)
+    public void SetVectors(ANode start, ANode end)
     {
         // set start and end point
         Start = start;
