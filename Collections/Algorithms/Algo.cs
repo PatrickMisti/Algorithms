@@ -1,5 +1,6 @@
 ﻿using Collections.AStar;
 using Collections.Basis;
+using Collections.Dijkstra;
 
 namespace Collections.Algorithms;
 
@@ -52,7 +53,7 @@ internal static class Algo
         }
     }
 
-    public static void DijkstraAlgo()
+    public static void DijkstraAlgo(ref DNode start, ref DNode end)
     {
 
     }
