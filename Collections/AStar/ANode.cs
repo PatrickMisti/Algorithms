@@ -24,5 +24,5 @@ public class ANode : BaseNode
     
     public bool RemoveEdges(ANode node) => node.RemoveEdge(this) && RemoveEdge(node);
 
-    public bool IsValid() => X != null && Y != null || Distance != null;
+    public override bool IsValid() => X != null && Y != null || Distance != null;
 }

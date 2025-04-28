@@ -43,7 +43,7 @@ internal static class Algo
                 if (newCost < childNode.Cost)
                 {
                     // set the new cost and parent
-                    childNode.Cost = newCost;
+                    childNode.Cost = (int)newCost;
                     childNode.Parent = element;
                 }
                 // add updated element to the queue with the new cost

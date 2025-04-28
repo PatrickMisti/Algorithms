@@ -1,14 +1,8 @@
 ﻿namespace Collections.Basis;
 
-public class Edge
+public class Edge(int? cost, BaseNode? from, BaseNode? to)
 {
-    public BaseNode? From { get; set; }
-    public BaseNode? To { get; set; }
-    public int Cost { get; set; } = 0;
-    public Edge(int cost, BaseNode? from, BaseNode? to)
-    {
-        From = from;
-        To = to;
-        Cost = cost;
-    }
+    public BaseNode? From { get; set; } = from;
+    public BaseNode? To { get; set; } = to;
+    public int? Cost { get; set; } = cost;
 }

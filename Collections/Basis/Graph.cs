@@ -10,17 +10,15 @@ public abstract class Graph<T> where T : BaseNode
 
     #region Get and Set Nodes functions
 
-    public bool AddNodesToList(T? first, T? second, int cost)
+    protected bool AddNodesToList(T first, T second)
     {
-        if (first == null || second == null) return false;
+        if (!first.IsValid() || !second.IsValid()) return false;
 
         Nodes.Add(first);
         Nodes.Add(second);
 
         return true;
     }
-
-    public void AddNodesToList(T node, T other) => AddNodesToList(node, other, 1);
 
     public void RemoveEdge(T node, T other) => node.RemoveEdge(other);
 

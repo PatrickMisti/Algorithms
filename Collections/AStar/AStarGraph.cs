@@ -9,12 +9,9 @@ public class AStarGraph : Graph<ANode>
     
     public bool AddNodes(ANode node, ANode other, int cost)
     {
-        if (!node.IsValid() || !other.IsValid()) return false;
+        if (!AddNodesToList(node, other)) return false;
 
         node.AddEdges(other, cost);
-        Nodes.Add(node);
-        Nodes.Add(other);
-
         return true;
     }
 

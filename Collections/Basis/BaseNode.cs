@@ -1,8 +1,6 @@
-﻿using Collections.AStar;
+﻿namespace Collections.Basis;
 
-namespace Collections.Basis;
-
-public class BaseNode
+public abstract class BaseNode
 {
     public string Name { get; set; } = string.Empty;
     public BaseNode Parent { get; set; } = null!;
@@ -10,12 +8,12 @@ public class BaseNode
     public bool IsVisited { get; set; } = false;
     public IList<Edge> Edges { get; set; } = new List<Edge>();
 
-    public BaseNode()
+    protected BaseNode()
     {
         
     }
 
-    public BaseNode(string name)
+    protected BaseNode(string name)
     {
         Name = name;
     }
@@ -41,4 +39,6 @@ public class BaseNode
         if (item == null) return false;
         return Edges.Remove(item);
     }
+
+    public abstract bool IsValid();
 }
