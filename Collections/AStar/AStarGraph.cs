@@ -3,7 +3,7 @@ using Collections.Algorithms;
 
 namespace Collections.AStar;
 
-public class Graph
+public class AStarGraph
 {
     private readonly HashSet<Node> _nodes = new();
     public Node? Start { get; set; }

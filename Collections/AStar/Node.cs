@@ -20,12 +20,8 @@ public class Node : BaseNode
         Distance = distance;
     }
 
-    public void AddEdges(Node node, int cost)
-    {
-        AddEdge(node, cost);
-        node.AddEdge(this, cost);
-    }
-
+    public void AddEdges(Node node, int cost) => AddBiEdge(this, node, cost);
+    
     public bool RemoveEdges(Node node) => node.RemoveEdge(this) && RemoveEdge(node);
 
     public bool IsValid() => X != null && Y != null || Distance != null;

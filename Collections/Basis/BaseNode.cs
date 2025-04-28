@@ -20,13 +20,19 @@ public class BaseNode
         Name = name;
     }
 
-    public void AddEdge(Node node, int cost)
+    public void AddEdge(BaseNode node, int cost)
     {
         if (Edges.Any(e => e.To == node)) return;
         Edges.Add(new Edge(cost, from: this, to: node));
     }
 
-    public bool RemoveEdge(Node node)
+    public void AddBiEdge(BaseNode first, BaseNode second, int cost)
+    {
+        AddEdge(second, cost);
+        second.AddEdge(this, cost);
+    }
+
+    public bool RemoveEdge(BaseNode node)
     {
         var item = Edges
             .ToList()

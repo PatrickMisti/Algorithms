@@ -4,9 +4,9 @@ namespace AStar;
 
 internal static class Generator
 {
-    internal static Graph CreateGraphDemo()
+    internal static AStarGraph CreateGraphDemo()
     {
-        Graph graph = new Graph();
+        AStarGraph graph = new AStarGraph();
 
         var s = new Node("s", 45);
         var e = new Node("e", 55);
@@ -65,9 +65,9 @@ internal static class Generator
         return grid;
     }
 
-    internal static Graph ConvertGridToGraph(Node[,] grid)
+    internal static AStarGraph ConvertGridToGraph(Node[,] grid)
     {
-        var g = new Graph();
+        var g = new AStarGraph();
 
         for (int x = 0; x < N; x++)
         for (int y = 0; y < N; y++)
@@ -81,7 +81,7 @@ internal static class Generator
         return g;
     }
 
-    internal static Graph CreateGraph()
+    internal static AStarGraph CreateGraph()
     {
         var grid = GenerateGrid();
         var g = ConvertGridToGraph(grid);
@@ -96,7 +96,7 @@ internal static class Generator
         return g;
     }
 
-    internal static void Print(Graph graph)
+    internal static void Print(AStarGraph graph)
     {
         var path = new List<Node>();
 
