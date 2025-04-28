@@ -1,8 +1,11 @@
-﻿namespace Collections.Basis;
+﻿using Collections.AStar;
+using System.Text;
 
-internal abstract class Graph<T> where T : BaseNode
+namespace Collections.Basis;
+
+public abstract class Graph<T> where T : BaseNode
 {
-    private readonly HashSet<T> _nodes = new();
+    internal readonly HashSet<T> Nodes = new();
     public T? Start { get; set; }
     public T? End { get; set; }
 
@@ -12,8 +15,8 @@ internal abstract class Graph<T> where T : BaseNode
     {
         if (first == null || second == null) return false;
 
-        _nodes.Add(first);
-        _nodes.Add(second);
+        Nodes.Add(first);
+        Nodes.Add(second);
 
         return true;
     }
@@ -22,9 +25,43 @@ internal abstract class Graph<T> where T : BaseNode
 
     public void RemoveEdge(T node, T other) => node.RemoveEdge(other);
 
-    public List<T> GetNodes() => _nodes.ToList();
+    public List<T> GetNodes() => Nodes.ToList();
 
     #endregion
 
     public abstract bool PathFinderAlgo();
+
+    #region Output
+
+    public List<T> GetShortestPath()
+    {
+        var path = new List<T>();
+        var current = End;
+
+        while (current != null)
+        {
+            path.Add(current);
+            current = (T)current.Parent;
+        }
+
+        path.Reverse();
+        return path;
+    }
+
+    public string GetShortestPathToString()
+    {
+        var path = GetShortestPath();
+        var result = new StringBuilder();
+
+        foreach (var node in path)
+        {
+            result.Append(node.Name);
+            if (node != path.Last())
+                result.Append(" -> ");
+        }
+
+        return result.ToString();
+    }
+
+    #endregion
 }

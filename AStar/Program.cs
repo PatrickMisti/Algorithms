@@ -3,9 +3,9 @@ using Collections.AStar;
 
 Console.WriteLine("AStar Algorithm");
 
-Graph graph = Generator.CreateGraphDemo();
+AStarGraph graph = Generator.CreateGraphDemo();
 
-if (!graph.FindShortestPath())
+if (!graph.PathFinderAlgo())
 {
     Console.WriteLine("No path found");
     return;
