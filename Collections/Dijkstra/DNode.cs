@@ -22,6 +22,6 @@ public class DNode : BaseNode
 
     public override int CompareTo(BaseNode? obj)
     {
-        throw new NotImplementedException();
+        return Cost < obj!.Cost ? -1 : 1;
     }
 }

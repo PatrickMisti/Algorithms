@@ -42,7 +42,7 @@ public class DijkstraGraph : Graph<DNode>
             return false;
         }
 
-        //Algo.DijkstraAlgo(ref start, ref end);
+        Algo.DijkstraAlgo(ref start, ref end);
         return true;
     }
 }

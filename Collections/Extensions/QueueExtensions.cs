@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using Collections.AStar;
 using Collections.Basis;
+using Collections.Dijkstra;
 
 namespace Collections.Extensions;
 
@@ -23,6 +24,13 @@ internal static class QueueExtensions
         var element = queue.ToImmutableSortedSet()
             .First();
 
+        queue.Remove(element);
+        node = element;
+    }
+
+    public static void pop_front(this HashSet<DNode> queue, out DNode node)
+    {
+        var element = queue.ToImmutableSortedSet().First();
         queue.Remove(element);
         node = element;
     }

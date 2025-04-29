@@ -5,7 +5,6 @@ public abstract class BaseNode: IComparable<BaseNode>
     public string Name { get; set; } = string.Empty;
     public BaseNode Parent { get; set; } = null!;
     public double Cost { get; set; } = double.MaxValue;
-    public bool IsVisited { get; set; } = false;
     public IList<Edge> Edges { get; set; } = new List<Edge>();
 
     protected BaseNode()
@@ -34,7 +33,7 @@ public abstract class BaseNode: IComparable<BaseNode>
     {
         var item = Edges
             .ToList()
-            .Find(opt => opt.From != null && opt.From.Equals(node));
+            .Find(opt => opt.From.Equals(node));
 
         if (item == null) return false;
         return Edges.Remove(item);

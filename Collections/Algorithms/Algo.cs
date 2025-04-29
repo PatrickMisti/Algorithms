@@ -67,29 +67,27 @@ internal static class Algo
 
     public static void DijkstraAlgo(ref DNode start, ref DNode end)
     {
-        PriorityQueue<BaseNode, double> queue = new();
+        HashSet<DNode> queue = new();
         start.Cost = 0;
 
-        queue.Enqueue(start, 0);
+        queue.Add(start);
 
         while (queue.Count > 0)
         {
-            queue.TryDequeue(out var element, out var priority);
-            if (element!.IsVisited) continue;
-            element.IsVisited = true;
+            queue.pop_front(out var element);
 
             foreach (var edge in element.Edges)
             {
                 var childNode = (DNode)edge.To;
-                if (childNode.IsVisited) continue;
 
-                var newCost = childNode.Cost + edge.Cost;
+                var newCost = element.Cost + edge.Cost;
+
                 if (newCost < childNode.Cost)
                 {
-                    //childNode.Cost = newCost;
+                    childNode.Cost = newCost;
                     childNode.Parent = element;
                 }
-                queue.Enqueue(childNode, childNode.Cost);
+                queue.Add(childNode);
             }
         }
     }

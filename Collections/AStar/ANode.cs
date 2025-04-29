@@ -9,6 +9,7 @@ public class ANode : BaseNode
     public double? Heuristic { get; set; }
     public double FCost => (Cost + Heuristic ?? 0);
     public bool IsObstacle { get; set; } = false;
+    public bool IsVisited { get; set; } = false;
 
     public ANode(int x, int y)
     {
