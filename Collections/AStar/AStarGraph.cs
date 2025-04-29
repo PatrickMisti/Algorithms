@@ -36,7 +36,7 @@ public class AStarGraph : Graph<ANode>
         foreach (var node in Nodes)
             // only if x and y coordinates are not null
             if (node is { X: not null, Y: not null })
-                node.Distance = Math.Sqrt(Math.Pow((double)(node.X - End!.X)!, 2) + Math.Pow((double)(node.Y - End!.Y)!, 2));
+                node.Heuristic = Math.Sqrt(Math.Pow((double)(node.X - End!.X)!, 2) + Math.Pow((double)(node.Y - End!.Y)!, 2));
     }
 
     #endregion

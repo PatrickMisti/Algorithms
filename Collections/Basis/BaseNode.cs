@@ -4,7 +4,7 @@ public abstract class BaseNode
 {
     public string Name { get; set; } = string.Empty;
     public BaseNode Parent { get; set; } = null!;
-    public int Cost { get; set; } = int.MaxValue;
+    public double Cost { get; set; } = double.MaxValue;
     public bool IsVisited { get; set; } = false;
     public IList<Edge> Edges { get; set; } = new List<Edge>();
 

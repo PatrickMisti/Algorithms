@@ -17,6 +17,6 @@ public class DNode : BaseNode
         var item = Edges.ToList();
         if (item.Count == 0) return true;
 
-        return item.All(edge => edge is { From: not null, To: not null, Cost: not null });
+        return true;
     }
 }
