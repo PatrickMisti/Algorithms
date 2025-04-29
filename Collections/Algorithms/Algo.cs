@@ -76,6 +76,13 @@ internal static class Algo
         {
             queue.pop_front(out var element);
 
+#if DEBUG
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine($"Current Element = {element.Name}");
+            Console.WriteLine($"Queue: {queue.QueueToStringDij()}");
+            Console.WriteLine($"Child from {element.Name} -> {element.Edges.EdgesToStringDij()}");
+#endif
+
             foreach (var edge in element.Edges)
             {
                 var childNode = (DNode)edge.To;
