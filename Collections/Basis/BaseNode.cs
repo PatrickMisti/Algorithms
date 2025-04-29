@@ -1,6 +1,6 @@
 ﻿namespace Collections.Basis;
 
-public abstract class BaseNode
+public abstract class BaseNode: IComparable<BaseNode>
 {
     public string Name { get; set; } = string.Empty;
     public BaseNode Parent { get; set; } = null!;
@@ -41,4 +41,5 @@ public abstract class BaseNode
     }
 
     public abstract bool IsValid();
+    public abstract int CompareTo(BaseNode? obj);
 }

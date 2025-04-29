@@ -2,7 +2,7 @@
 
 namespace Collections.AStar;
 
-public class ANode : BaseNode, IComparable<ANode>
+public class ANode : BaseNode
 {
     public int? X { get; set; }
     public int? Y { get; set; }
@@ -26,10 +26,9 @@ public class ANode : BaseNode, IComparable<ANode>
     public bool RemoveEdges(ANode node) => node.RemoveEdge(this) && RemoveEdge(node);
 
     public override bool IsValid() => X != null && Y != null || Heuristic != null;
-
-    public int CompareTo(ANode? other)
+    public override int CompareTo(BaseNode? obj)
     {
-        return FCost <= other?.FCost
+        return FCost <= ((ANode)obj!).FCost
             ? -1
             : 1;
     }

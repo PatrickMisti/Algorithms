@@ -18,12 +18,8 @@ internal static class Algo
         while (queue.Count > 0) // shortest path -> && !queue[0].Equals(end)
         {
             // get the node with the lowest cost
-            var element = queue
-                .ToImmutableSortedSet()
-                .First();
-
             // remove top
-            queue.Remove(element);
+            queue.pop_front(out var element);
 
 #if DEBUG
             Console.WriteLine("----------------------------------");
@@ -74,7 +70,8 @@ internal static class Algo
         PriorityQueue<BaseNode, double> queue = new();
         start.Cost = 0;
 
-        queue.Enqueue(start, start.Cost);
+        queue.Enqueue(start, 0);
+
         while (queue.Count > 0)
         {
             queue.TryDequeue(out var element, out var priority);
@@ -83,7 +80,7 @@ internal static class Algo
 
             foreach (var edge in element.Edges)
             {
-                var childNode = (DNode)edge.To!;
+                var childNode = (DNode)edge.To;
                 if (childNode.IsVisited) continue;
 
                 var newCost = childNode.Cost + edge.Cost;

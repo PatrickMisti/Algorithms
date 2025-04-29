@@ -19,4 +19,9 @@ public class DNode : BaseNode
 
         return true;
     }
+
+    public override int CompareTo(BaseNode? obj)
+    {
+        throw new NotImplementedException();
+    }
 }

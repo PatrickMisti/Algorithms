@@ -17,4 +17,13 @@ internal static class QueueExtensions
 
     public static string NodeToString(this ANode node) 
         => $"{node.Name}:{(node.FCost >= int.MaxValue ? "\u221e" : node.FCost)}";
+
+    public static void pop_front(this HashSet<ANode> queue, out ANode node)
+    {
+        var element = queue.ToImmutableSortedSet()
+            .First();
+
+        queue.Remove(element);
+        node = element;
+    }
 }
