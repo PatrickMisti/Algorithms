@@ -1,4 +1,5 @@
-﻿using Collections.AStar;
+﻿using System.Collections.Immutable;
+using Collections.AStar;
 using Collections.Basis;
 using Collections.Dijkstra;
 using Collections.Extensions;
@@ -9,59 +10,62 @@ internal static class Algo
 {
     public static void AStarAlgo(ref ANode start, ref ANode end)
     {
-        List<ANode> queue = new();
-
+        HashSet<ANode> queue = new();
         // add start node to queue with cost 0
         start.Cost = 0;
         queue.Add(start);
 
-        while (queue.Count > 0 /*&& !queue[0].Equals(end)*/) // shortest path
+        while (queue.Count > 0) // shortest path -> && !queue[0].Equals(end)
         {
             // get the node with the lowest cost
-            queue.Sort();
-            var element = queue[0];
-            queue.RemoveAt(0);
+            var element = queue
+                .ToImmutableSortedSet()
+                .First();
 
+            // if element is end -> break
             if (element.Equals(end))
                 break;
 
+            // remove top
+            queue.Remove(element);
+
+#if DEBUG
             Console.WriteLine("----------------------------------");
-            Console.WriteLine($"Current Element = {element.Name}:{element.FCost}");
-            Console.WriteLine($"Queue: {string.Join(',', queue.Select(o => $"{o.Name}:{o.FCost}"))}");
-            Console.WriteLine($"Child from {element.Name} -> {string.Join(',', element.Edges.Select(o => $"{o.To.Name}:{((ANode)o.To).FCost}"))}");
-            
-            // it's possible to remove edge from element without checking isVisited
+            Console.WriteLine($"Current Element = {element.NodeToString()}");
+            Console.WriteLine($"Queue: {queue.QueueToStringAStar()}");
+            Console.WriteLine($"Child from {element.Name} -> {element.Edges.EdgesToStringAStar()}");
+#endif
+
             // if element is already visited, skip it
             if (element.IsVisited) continue;
-
             element.IsVisited = true;
 
+            Console.WriteLine("Is not visited yet");
+
             // get all edges from the node
-            foreach (var edge in element!.Edges)
+            foreach (var edge in element.Edges)
             {
                 // get the other end of edge
                 var childNode = (ANode)edge.To;
-                var cost = edge.Cost;
 
-                // if edge to is obstacle or edge already visited, skip it
+                // if edge to is obstacle, skip it
+                // actually not need for this example
                 if (childNode.IsObstacle)
                     continue;
 
                 // calc the current element cost with edge cost
-                var newCost = element.Cost + cost;
+                var newCost = element.Cost + edge.Cost;
 
                 // if the new cost is less than the current cost, set the new cost and parent
                 // default childNode cost is int.MaxValue
-                if (childNode.Cost > newCost)
+                if (newCost < childNode.Cost)
                 {
                     // set the new cost and parent
                     childNode.Cost = newCost;
                     childNode.Parent = element;
-                    childNode.IsVisited = false;
                 }
                 // add updated element to the queue with the new cost
-                if (!queue.ExistElementInQueue(childNode) && !childNode.IsVisited)
-                    queue.Add(childNode);
+                queue.Add(childNode);
             }
         }
     }
