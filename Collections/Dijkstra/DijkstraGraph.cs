@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Collections.Algorithms;
+﻿using Collections.Algorithms;
 using Collections.Basis;
 
 namespace Collections.Dijkstra;
@@ -47,7 +42,7 @@ public class DijkstraGraph : Graph<DNode>
             return false;
         }
 
-        Algo.DijkstraAlgo(ref start, ref end);
+        //Algo.DijkstraAlgo(ref start, ref end);
         return true;
     }
 }

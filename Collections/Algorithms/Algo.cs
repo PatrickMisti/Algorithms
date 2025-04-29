@@ -22,10 +22,6 @@ internal static class Algo
                 .ToImmutableSortedSet()
                 .First();
 
-            // if element is end -> break
-            if (element.Equals(end))
-                break;
-
             // remove top
             queue.Remove(element);
 
@@ -35,6 +31,9 @@ internal static class Algo
             Console.WriteLine($"Queue: {queue.QueueToStringAStar()}");
             Console.WriteLine($"Child from {element.Name} -> {element.Edges.EdgesToStringAStar()}");
 #endif
+            // if element is end -> break
+            if (element.Equals(end))
+                break;
 
             // if element is already visited, skip it
             if (element.IsVisited) continue;

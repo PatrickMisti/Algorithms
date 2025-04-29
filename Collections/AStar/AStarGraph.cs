@@ -7,15 +7,15 @@ public class AStarGraph : Graph<ANode>
 {
     #region Get and Set Nodes functions
     
-    public bool AddNodes(ANode node, ANode other, int cost)
+    public bool AddNodes(ANode first, ANode second, int cost)
     {
-        if (!AddNodesToList(node, other)) return false;
+        if (!AddNodesToList(first, second)) return false;
 
-        node.AddEdges(other, cost);
+        first.AddEdges(second, cost);
         return true;
     }
 
-    public void AddNodes(ANode node, ANode other) => AddNodes(node, other, 1);
+    public void AddNodes(ANode first, ANode second) => AddNodes(first, second, 1);
 
     #endregion
 
