@@ -33,7 +33,7 @@ public abstract class BaseNode: IComparable<BaseNode>
     {
         var item = Edges
             .ToList()
-            .Find(opt => opt.From.Equals(node));
+            .Find(opt => opt.To.Equals(node));
 
         if (item == null) return false;
         return Edges.Remove(item);
