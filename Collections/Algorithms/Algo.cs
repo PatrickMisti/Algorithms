@@ -1,8 +1,10 @@
 ﻿using System.Collections.Immutable;
+using System.Xml.Linq;
 using Collections.AStar;
 using Collections.Basis;
 using Collections.Dijkstra;
 using Collections.Extensions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Collections.Algorithms;
 
@@ -59,6 +61,7 @@ internal static class Algo
                     childNode.Cost = newCost;
                     childNode.Parent = element;
                 }
+
                 // add updated element to the queue with the new cost
                 queue.Add(childNode);
             }
@@ -75,6 +78,11 @@ internal static class Algo
         while (queue.Count > 0)
         {
             queue.pop_front(out var element);
+
+            if (element == null) break;
+
+            if (element.IsVisited) continue;
+            element.IsVisited = true;
 
 #if DEBUG
             Console.WriteLine("----------------------------------");
@@ -94,8 +102,84 @@ internal static class Algo
                     childNode.Cost = newCost;
                     childNode.Parent = element;
                 }
+
                 queue.Add(childNode);
             }
         }
+    }
+
+    private static void Print(HashSet<DNode> queue, DNode current, bool front = true)
+    {
+        string side = front ? "Front" : "Back";
+
+        Console.WriteLine("-----------------------------------------");
+        Console.WriteLine($"Current {side}: {current.NodeToString()}");
+        Console.WriteLine($"In {side} Queue: {queue.QueueToStringDij()}");
+        Console.WriteLine($"Current {side} {current.Name} -> {current.Edges.EdgesToStringDij()}");
+    }
+
+    public static bool Step(ref HashSet<DNode> queue, ref HashSet<DNode> otherQueue, ref DNode? current, Func<DNode,DNode,bool>? action = null)
+    {
+        if (current is null) return false;
+
+        current.IsVisited = true;
+
+        bool fin = false;
+        foreach (var edge in current.Edges)
+        {
+            var childNode = (DNode)edge.To;
+
+            var newCost = current.Cost + edge.Cost;
+
+            if (action is not null)
+                fin |= action.Invoke(childNode, current);
+
+            if (newCost < childNode.Cost)
+            {
+                childNode.Cost = newCost;
+                childNode.Parent = current;
+            }
+            if (!otherQueue.Contains(childNode))
+                queue.Add(childNode);
+        }
+        Print(queue, current, action == null);
+        return fin;
+    }
+
+    public static void DoubleDijkstraAlgo(ref DNode start, ref DNode end)
+    {
+        HashSet<DNode> queueFront = new();
+        HashSet<DNode> queueBack = new();
+
+        start.Cost = 0;
+        queueFront.Add(start);
+        
+        end.Cost = 0;
+        queueBack.Add(end);
+
+        var st = start;
+        var en = end;
+        bool finished = false;
+
+        while ((queueFront.Count > 0 || queueBack.Count > 0) && !finished)
+        {
+
+            queueFront.pop_front_not_visited(out var front);
+            queueBack.pop_front_not_visited(out var back);
+
+            finished |= Step(ref queueFront,ref queueBack, ref front);
+            finished |= Step(ref queueBack, ref queueFront, ref back,(childNode, element) =>
+            {
+
+                if (childNode.SearchToStart(st, en))
+                {
+                    childNode.CorrectGraph(element);
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        Console.WriteLine();
     }
 }

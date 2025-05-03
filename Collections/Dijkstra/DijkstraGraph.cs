@@ -12,6 +12,12 @@ public class DijkstraGraph : Graph<DNode>
         from.AddEdge(to, cost);
     }
 
+    public void AddNodes(DNode first, DNode second, int cost)
+    {
+        if (!AddNodesToList(first, second)) return;
+        first.AddBiEdge(first, second, cost);
+    }
+
     public void SetVectors(DNode start, DNode end)
     {
         // set start and end point
@@ -43,6 +49,21 @@ public class DijkstraGraph : Graph<DNode>
         }
 
         Algo.DijkstraAlgo(ref start, ref end);
+        return true;
+    }
+
+    public bool PathFinderAlgoDouble()
+    {
+        var start = Start;
+        var end = End;
+
+        if (start == null || end == null || Nodes.Count < 2)
+        {
+            Console.WriteLine("Start or end node is not set.");
+            return false;
+        }
+
+        Algo.DoubleDijkstraAlgo(ref start, ref end);
         return true;
     }
 }

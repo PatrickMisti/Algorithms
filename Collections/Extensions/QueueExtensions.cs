@@ -37,10 +37,51 @@ internal static class QueueExtensions
         node = element;
     }
 
-    public static void pop_front(this HashSet<DNode> queue, out DNode node)
+    public static void pop_front(this HashSet<DNode> queue, out DNode? node)
     {
-        var element = queue.ToImmutableSortedSet().First();
+        var element = queue.ToImmutableSortedSet().FirstOrDefault();
+        if (element == null)
+        {
+            node = null;
+            return;
+        }
         queue.Remove(element);
         node = element;
+    }
+
+    public static void pop_front_not_visited(this HashSet<DNode> queue, out DNode? node)
+    {
+        queue.pop_front(out node);
+        if (node == null) return;
+
+        while(node is {IsVisited: true})
+            queue.pop_front(out node);
+    }
+
+    public static bool SearchToStart(this DNode node, DNode start, DNode end)
+    {
+        DNode? tmp = node;
+        while (tmp != null && !tmp.Equals(start) && !tmp.Equals(end))
+        {
+            tmp = (DNode)tmp.Parent;
+        }
+            
+
+        if (tmp == null) return false;
+
+        if (tmp.Equals(start)) return true;
+
+        return false;
+    }
+
+    public static void CorrectGraph(this DNode node, DNode back)
+    {
+        while (back != null!)
+        {
+            DNode tmp = (DNode)back.Parent;
+            back.Parent = node;
+            node = back;
+            back = tmp;
+        }
     }
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dijkstra", "Dijkstra\Dijkst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collections", "Collections\Collections.csproj", "{FFA65BC1-1768-4D50-A513-441CA5CB6139}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleDijkstra", "DoubleDijkstra\DoubleDijkstra.csproj", "{93C25861-FD8D-49CB-9A68-99FF04F367F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FFA65BC1-1768-4D50-A513-441CA5CB6139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFA65BC1-1768-4D50-A513-441CA5CB6139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFA65BC1-1768-4D50-A513-441CA5CB6139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93C25861-FD8D-49CB-9A68-99FF04F367F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93C25861-FD8D-49CB-9A68-99FF04F367F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93C25861-FD8D-49CB-9A68-99FF04F367F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93C25861-FD8D-49CB-9A68-99FF04F367F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
