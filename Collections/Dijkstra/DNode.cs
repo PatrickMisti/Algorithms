@@ -10,6 +10,13 @@ public class DNode : BaseNode
     {
     }
 
+    public DNode(DNode node) : base(node.Name)
+    {
+        Cost = node.Cost;
+        Parent = node.Parent;
+        IsVisited = node.IsVisited;
+    }
+
     public DNode()
     {
     }

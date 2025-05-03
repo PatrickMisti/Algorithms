@@ -7,20 +7,17 @@ namespace Collections.Extensions;
 
 internal static class QueueExtensions
 {
-    public static bool ExistElementInQueue(this List<ANode> queue, ANode? childNode)
-        => queue.Exists(opt => opt.Equals(childNode));
-    
     public static string EdgesToStringAStar(this IList<Edge> edges) 
         => string.Join(',', edges.Select(o => ((ANode)o.To).NodeToString()));
 
     public static string QueueToStringAStar(this HashSet<ANode> nodes) 
-        => string.Join(',', nodes.ToImmutableSortedSet().Select(o => o.NodeToString()));
+        => string.Join(',', nodes.Where(o => !o.IsVisited).ToImmutableSortedSet().Select(o => o.NodeToString()));
 
     public static string NodeToString(this ANode node) 
         => $"{node.Name}:{(node.FCost >= int.MaxValue ? "\u221e" : node.FCost)}";
 
     public static string QueueToStringDij(this HashSet<DNode> nodes)
-        => string.Join(',', nodes.Select(o => o.NodeToString()));
+        => string.Join(',', nodes.Where(o => !o.IsVisited).Select(o => o.NodeToString()));
 
     public static string EdgesToStringDij(this IList<Edge> edges) 
         => string.Join(',', edges.Select(o => ((DNode)o.To).NodeToString()));
@@ -28,10 +25,16 @@ internal static class QueueExtensions
     public static string NodeToString(this DNode node)
         => $"{node.Name}:{(node.Cost >= int.MaxValue ? "\u221e" : node.Cost)}";
 
-    public static void pop_front(this HashSet<ANode> queue, out ANode node)
+    public static void pop_front(this HashSet<ANode> queue, out ANode? node)
     {
-        var element = queue.ToImmutableSortedSet()
-            .First();
+        var element = queue.Where(o => !o.IsVisited).ToImmutableSortedSet()
+            .FirstOrDefault();
+
+        if (element == null)
+        {
+            node = null!;
+            return;
+        }
 
         queue.Remove(element);
         node = element;
@@ -39,7 +42,7 @@ internal static class QueueExtensions
 
     public static void pop_front(this HashSet<DNode> queue, out DNode? node)
     {
-        var element = queue.ToImmutableSortedSet().FirstOrDefault();
+        var element = queue.Where(o => !o.IsVisited).ToImmutableSortedSet().FirstOrDefault();
         if (element == null)
         {
             node = null;
@@ -47,15 +50,6 @@ internal static class QueueExtensions
         }
         queue.Remove(element);
         node = element;
-    }
-
-    public static void pop_front_not_visited(this HashSet<DNode> queue, out DNode? node)
-    {
-        queue.pop_front(out node);
-        if (node == null) return;
-
-        while(node is {IsVisited: true})
-            queue.pop_front(out node);
     }
 
     public static bool SearchToStart(this DNode node, DNode start, DNode end)

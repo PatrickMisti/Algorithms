@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collections", "Collections\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleDijkstra", "DoubleDijkstra\DoubleDijkstra.csproj", "{93C25861-FD8D-49CB-9A68-99FF04F367F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AStarVsDijkstra", "AStarVsDijkstra\AStarVsDijkstra.csproj", "{B70863C3-59A9-41EF-8329-64B7841AC0B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewYork", "NewYork\NewYork.csproj", "{25943ACF-12AB-46C9-9D88-16A4135E0BED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{93C25861-FD8D-49CB-9A68-99FF04F367F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93C25861-FD8D-49CB-9A68-99FF04F367F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93C25861-FD8D-49CB-9A68-99FF04F367F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B70863C3-59A9-41EF-8329-64B7841AC0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70863C3-59A9-41EF-8329-64B7841AC0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70863C3-59A9-41EF-8329-64B7841AC0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70863C3-59A9-41EF-8329-64B7841AC0B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25943ACF-12AB-46C9-9D88-16A4135E0BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25943ACF-12AB-46C9-9D88-16A4135E0BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25943ACF-12AB-46C9-9D88-16A4135E0BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25943ACF-12AB-46C9-9D88-16A4135E0BED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

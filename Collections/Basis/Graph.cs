@@ -4,7 +4,7 @@ namespace Collections.Basis;
 
 public abstract class Graph<T> where T : BaseNode
 {
-    internal readonly HashSet<T> Nodes = new();
+    internal HashSet<T> Nodes = new();
     public T? Start { get; set; }
     public T? End { get; set; }
 

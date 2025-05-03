@@ -66,4 +66,12 @@ public class DijkstraGraph : Graph<DNode>
         Algo.DoubleDijkstraAlgo(ref start, ref end);
         return true;
     }
+
+    public DijkstraGraph Copy()
+    {
+        return new DijkstraGraph
+        {
+            Nodes = Nodes.Select(o => new DNode(o)).ToHashSet()
+        };
+    }
 }

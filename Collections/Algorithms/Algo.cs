@@ -1,10 +1,6 @@
-﻿using System.Collections.Immutable;
-using System.Xml.Linq;
-using Collections.AStar;
-using Collections.Basis;
+﻿using Collections.AStar;
 using Collections.Dijkstra;
 using Collections.Extensions;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Collections.Algorithms;
 
@@ -22,6 +18,7 @@ internal static class Algo
             // get the node with the lowest cost
             // remove top
             queue.pop_front(out var element);
+            if (element == null) break;
 
 #if DEBUG
             Console.WriteLine("----------------------------------");
@@ -103,7 +100,8 @@ internal static class Algo
                     childNode.Parent = element;
                 }
 
-                queue.Add(childNode);
+                if (!childNode.IsVisited)
+                    queue.Add(childNode);
             }
         }
     }
@@ -164,8 +162,8 @@ internal static class Algo
         while ((queueFront.Count > 0 || queueBack.Count > 0) && !finished)
         {
 
-            queueFront.pop_front_not_visited(out var front);
-            queueBack.pop_front_not_visited(out var back);
+            queueFront.pop_front(out var front);
+            queueBack.pop_front(out var back);
 
             finished |= Step(ref queueFront,ref queueBack, ref front);
             finished |= Step(ref queueBack, ref queueFront, ref back,(childNode, element) =>
