@@ -5,6 +5,7 @@ namespace Collections.Dijkstra;
 public class DNode : BaseNode
 {
     public bool IsVisited { get; set; } = false;
+    public bool IsVisitedDouble { get; set; } = false;
 
     public DNode(string name) : base(name)
     {

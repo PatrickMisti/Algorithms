@@ -116,32 +116,45 @@ internal static class Algo
         Console.WriteLine($"Current {side} {current.Name} -> {current.Edges.EdgesToStringDij()}");
     }
 
-    public static bool Step(ref HashSet<DNode> queue, ref HashSet<DNode> otherQueue, ref DNode? current, Func<DNode,DNode,bool>? action = null)
+    public static void Step(ref HashSet<DNode> queue, ref DNode? cross, ref double bestPathLength, bool isFront = true)
     {
-        if (current is null) return false;
+        queue.pop_front(out var current);
 
-        current.IsVisited = true;
+        if (current is null) return;
 
-        bool fin = false;
+        if ((isFront && current.IsVisited) || (!isFront && current.IsVisitedDouble))
+            return;
+
+        if (isFront)
+            current.IsVisited = true;
+        else
+            current.IsVisitedDouble = true;
+
         foreach (var edge in current.Edges)
         {
             var childNode = (DNode)edge.To;
 
             var newCost = current.Cost + edge.Cost;
 
-            if (action is not null)
-                fin |= action.Invoke(childNode, current);
-
             if (newCost < childNode.Cost)
             {
                 childNode.Cost = newCost;
                 childNode.Parent = current;
-            }
-            if (!otherQueue.Contains(childNode))
                 queue.Add(childNode);
+            }
+
+            bool otherVisited = isFront ? current.IsVisitedDouble : current.IsVisited;
+
+            if (!otherVisited) continue;
+
+            double totalCost = newCost + childNode.Cost;
+            if (totalCost < bestPathLength)
+            {
+                bestPathLength = totalCost;
+                cross = current;
+            }
         }
-        Print(queue, current, action == null);
-        return fin;
+        Print(queue, current, isFront);
     }
 
     public static void DoubleDijkstraAlgo(ref DNode start, ref DNode end)
@@ -155,29 +168,18 @@ internal static class Algo
         end.Cost = 0;
         queueBack.Add(end);
 
-        var st = start;
-        var en = end;
-        bool finished = false;
+        DNode? crossNode = null;
+        double bestPathLength = double.MaxValue;
 
-        while ((queueFront.Count > 0 || queueBack.Count > 0) && !finished)
+        while (queueFront.Count > 0 || queueBack.Count > 0)
         {
-
-            queueFront.pop_front(out var front);
-            queueBack.pop_front(out var back);
-
-            finished |= Step(ref queueFront,ref queueBack, ref front);
-            finished |= Step(ref queueBack, ref queueFront, ref back,(childNode, element) =>
-            {
-
-                if (childNode.SearchToStart(st, en))
-                {
-                    childNode.CorrectGraph(element);
-                    return true;
-                }
-                return false;
-            });
+            Step(ref queueFront, ref crossNode, ref bestPathLength);
+            /*if (crossNode != null) break;*/
+            Step(ref queueBack, ref crossNode, ref bestPathLength, false);
+            /*if (crossNode != null) break;*/
         }
-
+        if (crossNode == null) return;
+        crossNode.ToEnd();
         Console.WriteLine();
     }
 }

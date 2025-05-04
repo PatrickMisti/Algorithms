@@ -40,9 +40,9 @@ internal static class QueueExtensions
         node = element;
     }
 
-    public static void pop_front(this HashSet<DNode> queue, out DNode? node)
+    public static void pop_front(this HashSet<DNode> queue, out DNode? node, bool isFront = true)
     {
-        var element = queue.Where(o => !o.IsVisited).ToImmutableSortedSet().FirstOrDefault();
+        var element = queue.Where(o => isFront ? !o.IsVisited : !o.IsVisitedDouble).ToImmutableSortedSet().FirstOrDefault();
         if (element == null)
         {
             node = null;
@@ -52,30 +52,17 @@ internal static class QueueExtensions
         node = element;
     }
 
-    public static bool SearchToStart(this DNode node, DNode start, DNode end)
+    public static void ToEnd(this DNode cross)
     {
-        DNode? tmp = node;
-        while (tmp != null && !tmp.Equals(start) && !tmp.Equals(end))
+        var shortestEdge = cross.Edges.ToImmutableSortedSet().First();
+        var shortestNode = (DNode)shortestEdge.To;
+        var current = cross;
+        while (shortestNode != null)
         {
-            tmp = (DNode)tmp.Parent;
-        }
-            
-
-        if (tmp == null) return false;
-
-        if (tmp.Equals(start)) return true;
-
-        return false;
-    }
-
-    public static void CorrectGraph(this DNode node, DNode back)
-    {
-        while (back != null!)
-        {
-            DNode tmp = (DNode)back.Parent;
-            back.Parent = node;
-            node = back;
-            back = tmp;
+            var parent = (DNode)shortestNode.Parent;
+            shortestNode.Parent = current;
+            current = shortestNode;
+            shortestNode = parent;
         }
     }
 }
