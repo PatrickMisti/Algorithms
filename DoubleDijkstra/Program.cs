@@ -1,8 +1,8 @@
 ﻿
-using Collections.Dijkstra;
+
 using DoubleDijkstra;
 
-
+Console.OutputEncoding = System.Text.Encoding.UTF8;
 Console.WriteLine("Double Dijkstra");
 
 var graph = Generator.CreateGraph();

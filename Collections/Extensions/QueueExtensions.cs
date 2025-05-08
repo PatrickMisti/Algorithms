@@ -26,8 +26,14 @@ internal static class QueueExtensions
     public static string EdgesToStringDij(this IList<Edge> edges) 
         => string.Join(',', edges.Select(o => ((DNode)o.To).NodeToString()));
 
+    public static string EdgesToStringBiDij(this IList<Edge> edges)
+        => string.Join(',', edges.Select(o => ((BiNode)o.To).NodeToString()));
+
     public static string NodeToString(this DNode node)
         => $"{node.Name}:{(node.Cost >= int.MaxValue ? "\u221e" : node.Cost)}";
+
+    public static string NodeToString(this BiNode node)
+        => $"{node.Name}: (F={(node.Cost >= int.MaxValue ? "∞" : node.Cost)}|B={(node.CostBack >= int.MaxValue ? "∞" : node.CostBack)})";
 
     public static void pop_front(this HashSet<ANode> queue, out ANode? node)
     {
@@ -72,17 +78,21 @@ internal static class QueueExtensions
         node = element;
     }
 
-    public static void ToEnd(this DNode cross)
+    public static void Reconstruct(ref BiNode cross, BiNode end)
     {
-        var shortestEdge = cross.Edges.ToImmutableSortedSet().First();
-        var shortestNode = (DNode)shortestEdge.To;
-        var current = cross;
-        while (shortestNode != null)
+        while (!cross.Equals(end))
         {
-            var parent = (DNode)shortestNode.Parent;
-            shortestNode.Parent = current;
-            current = shortestNode;
-            shortestNode = parent;
+            cross.ParentBack.Parent = cross;
+            cross = (BiNode)cross.ParentBack;
         }
+    }
+
+    public static double MinCost(this HashSet<BiNode> queue, bool isFront)
+    {
+        return queue
+            .Where(n => isFront ? !n.IsVisited : !n.IsVisitedBack)
+            .Select(n => isFront ? n.Cost : n.CostBack)
+            .DefaultIfEmpty(double.MaxValue)
+            .Min();
     }
 }
