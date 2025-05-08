@@ -108,7 +108,7 @@ internal static class Algo
         }
     }
 
-    private static void Print(List<BiNode> queue, DNode current, bool front = true)
+    private static void Print(List<BiNode> queue, BiNode current, bool front = true)
     {
         string side = front ? "Front" : "Back";
         queue.Sort((node, biNode) => node.GetCost(front).CompareTo(biNode.GetCost(front)));
@@ -120,38 +120,40 @@ internal static class Algo
 
     public static void Step(ref PriorityQueue<BiNode, double> queue, ref HashSet<BiNode> visited, ref BiNode? cross, ref double bestPathLength, bool isFront = true)
     {
+        // if queue is empty, return
         if (!queue.TryDequeue(out var current, out var cost)) return;
 
+        // set the current node as visited
         current.SetVisitedSide(isFront);
 
+        // when current node is visited from both sides return
         if (current is { IsVisitedBack: true, IsVisited: true } && current.GetCost(true) + current.GetCost(false) < bestPathLength)
         {
             cross = current;
             bestPathLength = current.GetTotalCost();
-            Console.WriteLine($"Current Cross is {current.Name}");
             return;
         }
 
+        // run through all edges of the current node
         foreach (var edge in current.Edges)
         {
             var childNode = (BiNode)edge.To;
+            //if edge is already visited only update not add
             BiNode? childState = visited.FirstOrDefault(o => o.Equals(childNode));
 
             var newCost = cost + edge.Cost;
 
-            if (childState == null)
+            
+            // update the priority queue with the new cost
+            if (newCost < childNode.GetCost(isFront))
             {
-                childNode.SetParent(current, isFront);
-                childNode.SetCost(newCost,isFront);
-                visited.Add(childNode);
-                queue.Enqueue(childNode, newCost);
-            }
-
-            else if (newCost < childNode.GetCost(isFront))
-            {
+                childState ??= childNode;
                 childState.SetCost(newCost, isFront);
                 childState.SetParent(current, isFront);
+                queue.Enqueue(childNode, newCost);
+                visited.Add(childNode);
             }
+
         }
         Print(queue.UnorderedItems.Select(o => o.Element).ToList(), current, isFront);
     }
@@ -160,6 +162,7 @@ internal static class Algo
     {
         PriorityQueue<BiNode,double> queueFront = new();
         PriorityQueue<BiNode,double> queueBack = new();
+
         HashSet<BiNode> visitedFront = new();
         HashSet<BiNode> visitedBack = new();
 
@@ -171,22 +174,24 @@ internal static class Algo
 
         BiNode? crossNode = null;
         double bestPathLength = double.MaxValue;
+        int count = 0;
 
         while (queueFront.Count > 0 || queueBack.Count > 0)
         {
-
+            count++;
             Step(ref queueFront, ref visitedFront,ref crossNode, ref bestPathLength);
             Step(ref queueBack, ref visitedBack,ref crossNode, ref bestPathLength, false);
 
             queueFront.TryPeek(out _, out var minFront);
             queueBack.TryPeek(out _, out var minBack);
 
-
-            /*if (crossNode != null && bestPathLength <= minFront + minBack)
+            if (crossNode != null && bestPathLength <= minFront + minBack)
             {
                 break;
-            }*/
+            }
         }
+
+        Console.WriteLine($"Count {count}");
         if (crossNode == null) return;
 
         QueueExtensions.Reconstruct(ref crossNode, end);
