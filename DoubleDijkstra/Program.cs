@@ -5,8 +5,8 @@ using DoubleDijkstra;
 
 Console.WriteLine("Double Dijkstra");
 
-DijkstraGraph graph = Generator.CreateGraph();
-if (!graph.PathFinderAlgoDouble())
+var graph = Generator.CreateGraph();
+if (!graph.PathFinderAlgo())
 {
     Console.WriteLine("Path not found");
     return;

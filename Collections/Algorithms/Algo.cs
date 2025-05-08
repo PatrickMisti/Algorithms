@@ -1,4 +1,5 @@
 ﻿using Collections.AStar;
+using Collections.BiDijkstra;
 using Collections.Dijkstra;
 using Collections.Extensions;
 
@@ -106,33 +107,33 @@ internal static class Algo
         }
     }
 
-    private static void Print(HashSet<DNode> queue, DNode current, bool front = true)
+    private static void Print(HashSet<BiNode> queue, DNode current, bool front = true)
     {
         string side = front ? "Front" : "Back";
 
         Console.WriteLine("-----------------------------------------");
         Console.WriteLine($"Current {side}: {current.NodeToString()}");
-        Console.WriteLine($"In {side} Queue: {queue.QueueToStringDij()}");
+        Console.WriteLine($"In {side} Queue: {queue.QueueToStringBiDij(front)}");
         Console.WriteLine($"Current {side} {current.Name} -> {current.Edges.EdgesToStringDij()}");
     }
 
-    public static void Step(ref HashSet<DNode> queue, ref DNode? cross, ref double bestPathLength, bool isFront = true)
+    public static void Step(ref HashSet<BiNode> queue, ref BiNode? cross, ref double bestPathLength, bool isFront = true)
     {
-        queue.pop_front(out var current);
+        queue.pop_front(out var current, isFront);
 
         if (current is null) return;
 
-        if ((isFront && current.IsVisited) || (!isFront && current.IsVisitedDouble))
+        if ((isFront && current.IsVisited) || (!isFront && current.IsVisitedBack))
             return;
 
         if (isFront)
             current.IsVisited = true;
         else
-            current.IsVisitedDouble = true;
+            current.IsVisitedBack = true;
 
         foreach (var edge in current.Edges)
         {
-            var childNode = (DNode)edge.To;
+            var childNode = (BiNode)edge.To;
 
             var newCost = current.Cost + edge.Cost;
 
@@ -143,7 +144,7 @@ internal static class Algo
                 queue.Add(childNode);
             }
 
-            bool otherVisited = isFront ? current.IsVisitedDouble : current.IsVisited;
+            bool otherVisited = isFront ? current.IsVisitedBack : current.IsVisited;
 
             if (!otherVisited) continue;
 
@@ -157,10 +158,10 @@ internal static class Algo
         Print(queue, current, isFront);
     }
 
-    public static void DoubleDijkstraAlgo(ref DNode start, ref DNode end)
+    public static void DoubleDijkstraAlgo(ref BiNode start, ref BiNode end)
     {
-        HashSet<DNode> queueFront = new();
-        HashSet<DNode> queueBack = new();
+        HashSet<BiNode> queueFront = new();
+        HashSet<BiNode> queueBack = new();
 
         start.Cost = 0;
         queueFront.Add(start);
@@ -168,7 +169,7 @@ internal static class Algo
         end.Cost = 0;
         queueBack.Add(end);
 
-        DNode? crossNode = null;
+        BiNode? crossNode = null;
         double bestPathLength = double.MaxValue;
 
         while (queueFront.Count > 0 || queueBack.Count > 0)

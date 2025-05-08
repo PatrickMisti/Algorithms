@@ -1,23 +1,24 @@
-﻿using Collections.Dijkstra;
+﻿using Collections.BiDijkstra;
+using Collections.Dijkstra;
 
 namespace DoubleDijkstra;
 
 internal static class Generator
 {
-    public static DijkstraGraph CreateGraph()
+    public static BiDijkstraGraph CreateGraph()
     {
-        DijkstraGraph graph = new DijkstraGraph();
-        var s = new DNode("S");
-        var a = new DNode("A");
-        var b = new DNode("B");
-        var c = new DNode("C");
-        var d = new DNode("D");
-        var e = new DNode("E");
-        var f = new DNode("F");
-        var g = new DNode("G");
-        var h = new DNode("H");
-        var i = new DNode("I");
-        var z = new DNode("Z");
+        BiDijkstraGraph graph = new BiDijkstraGraph();
+        var s = new BiNode("S");
+        var a = new BiNode("A");
+        var b = new BiNode("B");
+        var c = new BiNode("C");
+        var d = new BiNode("D");
+        var e = new BiNode("E");
+        var f = new BiNode("F");
+        var g = new BiNode("G");
+        var h = new BiNode("H");
+        var i = new BiNode("I");
+        var z = new BiNode("Z");
 
         graph.AddNodes(s, a, 11);
         graph.AddNodes(s, b, 10);

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using Collections.AStar;
 using Collections.Basis;
+using Collections.BiDijkstra;
 using Collections.Dijkstra;
 
 namespace Collections.Extensions;
@@ -18,6 +19,9 @@ internal static class QueueExtensions
 
     public static string QueueToStringDij(this HashSet<DNode> nodes)
         => string.Join(',', nodes.Where(o => !o.IsVisited).Select(o => o.NodeToString()));
+
+    public static string QueueToStringBiDij(this HashSet<BiNode> nodes, bool isFront)
+        => string.Join(',', nodes.Where(o => isFront ? !o.IsVisited : !o.IsVisitedBack).Select(o => o.NodeToString()));
 
     public static string EdgesToStringDij(this IList<Edge> edges) 
         => string.Join(',', edges.Select(o => ((DNode)o.To).NodeToString()));
@@ -40,9 +44,25 @@ internal static class QueueExtensions
         node = element;
     }
 
-    public static void pop_front(this HashSet<DNode> queue, out DNode? node, bool isFront = true)
+    public static void pop_front(this HashSet<DNode> queue, out DNode? node)
     {
-        var element = queue.Where(o => isFront ? !o.IsVisited : !o.IsVisitedDouble).ToImmutableSortedSet().FirstOrDefault();
+        var element = queue.Where(o => !o.IsVisited).ToImmutableSortedSet().FirstOrDefault();
+        if (element == null)
+        {
+            node = null;
+            return;
+        }
+        queue.Remove(element);
+        node = element;
+    }
+
+    public static void pop_front(this HashSet<BiNode> queue, out BiNode? node, bool isFront)
+    {
+        var element = queue
+            .Where(o => isFront ? !o.IsVisited : !o.IsVisitedBack)
+            .ToImmutableSortedSet()
+            .FirstOrDefault();
+
         if (element == null)
         {
             node = null;
