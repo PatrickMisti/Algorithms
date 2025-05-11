@@ -2,32 +2,59 @@
 
 internal class Calculation
 {
-    public static List<Edge> Calculate(List<Edge> edges)
+    private static readonly Dictionary<Node, Node> Parent = new();
+
+    public static HashSet<Edge> Calculate(List<Edge> list) 
     {
-        var result = new List<Edge>(); // S
+        Fill(list);
+        var b = new PriorityQueue<Edge, Edge>(list.Select(s => (s, s)));     // B
+        var s = new HashSet<Edge>();                                             // S
 
-        var b = new PriorityQueue<Edge, Edge>(); // B
-
-        foreach (var edge in edges)
-            b.Enqueue(edge, edge);
-
-        while (b.Count > 0)
+        while (b.TryDequeue(out var current, out _) && s.Count != list.Count - 1)
         {
-            var current = b.Dequeue(); // e*
-
-            var from = current.From;
-            var to = current.To;
-
-            var fromSet = FindEdges()
+            Print(b, s, current);
+            if (IsCycle(current.From, current.To)) continue;
+            s.Add(current); 
+            Bind(current.From, current.To);
         }
 
-        return result;
+        return s;
     }
 
-    static List<Edge> FindEdges(List<Edge> s,Node search, Edge e) 
-        => (from edge in s 
-                where edge.IsNodeInEdge(search) && !edge.Equals(e) 
-                select edge)
-            .ToList();
-    
+    private static void Print(PriorityQueue<Edge, Edge> b, HashSet<Edge> s, Edge e)
+    {
+        Console.WriteLine($"B  : [{string.Join(",", b.UnorderedItems.Select(o => o.Element))}]");
+        Console.WriteLine($"S  : [{string.Join(",", s)}]");
+        Console.WriteLine($"e* : {e}");
+        Console.WriteLine("----------------------------------------------\n");
+    }
+
+    private static void Fill(List<Edge> edges)
+    {
+        foreach (var edge in edges)
+        {
+            Parent[edge.From] = edge.From;
+            Parent[edge.To] = edge.To;
+        }
+    }
+
+    private static Node Find(Node node)
+    {
+        if (Parent[node] != node)
+            Parent[node] = Find(Parent[node]);
+        return Parent[node];
+    }
+
+    private static void Bind(Node node1, Node node2)
+    {
+        var root1 = Find(node1);
+        var root2 = Find(node2);
+        if (root1 != root2)
+            Parent[root1] = root2;
+    }
+
+    private static bool IsCycle(Node node1, Node node2)
+    {
+        return Find(node1) == Find(node2);
+    }
 }

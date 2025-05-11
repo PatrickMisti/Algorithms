@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace SpannbaumKruskal;
+﻿namespace SpannbaumKruskal;
 
 internal class Node(string name)
 {

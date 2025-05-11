@@ -14,12 +14,7 @@ internal class Edge(Node from, Node to, int cost = 0) : IComparable<Edge>
         return Cost.CompareTo(other.Cost);
     }
 
-    public bool IsNodeInEdge(Node node) => From.Equals(node) || To.Equals(node);
-
-    public override string ToString()
-    {
-        return $"[{From.Name} -- {To.Name}]";
-    }
+    public override string ToString() => "{" + From.Name + " - " + To.Name + "}";
 
     public static Edge Add(Node from, Node to, int cost) => new(from, to, cost);
 }
