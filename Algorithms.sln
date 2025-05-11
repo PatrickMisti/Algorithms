@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpannbaumKruskal", "Spannba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllKruskal", "AllKruskal\AllKruskal.csproj", "{9C9C66BD-24A4-4AF7-831F-B948E9026AE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MstHeuristicTsp", "MstHeuristicTsp\MstHeuristicTsp.csproj", "{24114F62-E509-4538-BDCA-B0EBB060F707}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{9C9C66BD-24A4-4AF7-831F-B948E9026AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C9C66BD-24A4-4AF7-831F-B948E9026AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C9C66BD-24A4-4AF7-831F-B948E9026AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24114F62-E509-4538-BDCA-B0EBB060F707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24114F62-E509-4538-BDCA-B0EBB060F707}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24114F62-E509-4538-BDCA-B0EBB060F707}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24114F62-E509-4538-BDCA-B0EBB060F707}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{0546F985-B735-4FE7-8E1A-44B536771A80} = {268B3ADD-4E3B-459F-8FC5-FFE00B14FB85}
 		{2B0B8E21-843C-45C9-824D-BDE580C62843} = {268B3ADD-4E3B-459F-8FC5-FFE00B14FB85}
 		{9C9C66BD-24A4-4AF7-831F-B948E9026AE5} = {268B3ADD-4E3B-459F-8FC5-FFE00B14FB85}
+		{24114F62-E509-4538-BDCA-B0EBB060F707} = {268B3ADD-4E3B-459F-8FC5-FFE00B14FB85}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C4181E2C-E315-4E82-B46D-CA1E2E502A00}
