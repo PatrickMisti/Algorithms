@@ -5,7 +5,7 @@ Console.WriteLine("Spannbaum Kruskal\n");
 
 var list = Generator.GenerateNodes();
 
-var result = Calculation.Calculate(list);
+var result = Calculation.Run(list);
 
 foreach (var r in result)
 {
@@ -16,7 +16,7 @@ foreach (var r in result)
         Console.WriteLine($"  {edge.From.Name} -- {edge.To.Name} [label=\"{edge.Cost}\"];");
         cost += edge.Cost;
     }
-    Console.WriteLine("}\n");
-
-    Console.WriteLine($"Total cost: {cost}");
+    Console.WriteLine("}");
+    
+    Console.WriteLine($"Total cost: {cost}\n");
 }

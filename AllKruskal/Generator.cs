@@ -17,29 +17,21 @@ internal class Generator
 
         return
         [
-            Edge.Add(a, b, 2),
-            Edge.Add(a, d, 1),
+            Edge.Add(a, d, 15),
 
-            Edge.Add(b, c, 1),
-            Edge.Add(b, d, 3),
-            Edge.Add(b, e, 2),
+            Edge.Add(g, d, 4),
+            Edge.Add(g, h, 4),
 
-            Edge.Add(c, e, 2),
-            Edge.Add(c, f, 7),
+            Edge.Add(e, h, 4),
+            Edge.Add(e, d, 4),
+            Edge.Add(e, b, 4),
+            Edge.Add(e, f, 3),
 
-            Edge.Add(d, e, 2),
-            Edge.Add(d, g, 5),
+            Edge.Add(c, b, 4),
+            Edge.Add(c,f,1),
 
-            Edge.Add(e, f, 4),
-            Edge.Add(e, g, 5),
-            Edge.Add(e, h, 5),
+            Edge.Add(f, i, 3),
 
-            Edge.Add(f, h, 3),
-            Edge.Add(f, i, 1),
-
-            Edge.Add(g, h, 5),
-
-            Edge.Add(h, i, 2),
         ];
     }
 }
