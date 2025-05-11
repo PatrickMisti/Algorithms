@@ -1,9 +1,9 @@
 ﻿using Collections.Algorithms;
 using Collections.Basis;
 
-namespace Collections.Dijkstra;
+namespace Collections.BiDijkstra;
 
-public class DijkstraGraph : DijGraph<DNode>
+public class BiDijkstraGraph : DijGraph<BiNode>
 {
     public override bool PathFinderAlgo()
     {
@@ -16,7 +16,7 @@ public class DijkstraGraph : DijGraph<DNode>
             return false;
         }
 
-        Algo.DijkstraAlgo(ref start, ref end);
+        Algo.DoubleDijkstraAlgo(ref start, ref end);
         return true;
     }
 }

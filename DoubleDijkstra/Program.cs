@@ -1,12 +1,12 @@
 ﻿
-using Collections.Dijkstra;
+
 using DoubleDijkstra;
 
-
+Console.OutputEncoding = System.Text.Encoding.UTF8;
 Console.WriteLine("Double Dijkstra");
 
-DijkstraGraph graph = Generator.CreateGraph();
-if (!graph.PathFinderAlgoDouble())
+var graph = Generator.CreateGraph();
+if (!graph.PathFinderAlgo())
 {
     Console.WriteLine("Path not found");
     return;

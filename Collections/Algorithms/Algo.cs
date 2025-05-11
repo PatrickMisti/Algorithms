@@ -1,4 +1,6 @@
-﻿using Collections.AStar;
+﻿using System.Linq.Expressions;
+using Collections.AStar;
+using Collections.BiDijkstra;
 using Collections.Dijkstra;
 using Collections.Extensions;
 
@@ -106,80 +108,87 @@ internal static class Algo
         }
     }
 
-    private static void Print(HashSet<DNode> queue, DNode current, bool front = true)
+    private static void Print(List<BiNode> queue, DNode current, bool front = true)
     {
         string side = front ? "Front" : "Back";
-
+        queue.Sort((node, biNode) => node.GetCost(front).CompareTo(biNode.GetCost(front)));
         Console.WriteLine("-----------------------------------------");
         Console.WriteLine($"Current {side}: {current.NodeToString()}");
-        Console.WriteLine($"In {side} Queue: {queue.QueueToStringDij()}");
-        Console.WriteLine($"Current {side} {current.Name} -> {current.Edges.EdgesToStringDij()}");
+        Console.WriteLine($"In {side} Queue: {string.Join(',', queue.Select(o => o.NodeToString()))}");
+        Console.WriteLine($"Current {side} {current.Name} -> {current.Edges.EdgesToStringBiDij()}");
     }
 
-    public static void Step(ref HashSet<DNode> queue, ref DNode? cross, ref double bestPathLength, bool isFront = true)
+    public static void Step(ref PriorityQueue<BiNode, double> queue, ref HashSet<BiNode> visited, ref BiNode? cross, ref double bestPathLength, bool isFront = true)
     {
-        queue.pop_front(out var current);
+        if (!queue.TryDequeue(out var current, out var cost)) return;
 
-        if (current is null) return;
+        current.SetVisitedSide(isFront);
 
-        if ((isFront && current.IsVisited) || (!isFront && current.IsVisitedDouble))
+        if (current is { IsVisitedBack: true, IsVisited: true } && current.GetCost(true) + current.GetCost(false) < bestPathLength)
+        {
+            cross = current;
+            bestPathLength = current.GetTotalCost();
+            Console.WriteLine($"Current Cross is {current.Name}");
             return;
-
-        if (isFront)
-            current.IsVisited = true;
-        else
-            current.IsVisitedDouble = true;
+        }
 
         foreach (var edge in current.Edges)
         {
-            var childNode = (DNode)edge.To;
+            var childNode = (BiNode)edge.To;
+            BiNode? childState = visited.FirstOrDefault(o => o.Equals(childNode));
 
-            var newCost = current.Cost + edge.Cost;
+            var newCost = cost + edge.Cost;
 
-            if (newCost < childNode.Cost)
+            if (childState == null)
             {
-                childNode.Cost = newCost;
-                childNode.Parent = current;
-                queue.Add(childNode);
+                childNode.SetParent(current, isFront);
+                childNode.SetCost(newCost,isFront);
+                visited.Add(childNode);
+                queue.Enqueue(childNode, newCost);
             }
 
-            bool otherVisited = isFront ? current.IsVisitedDouble : current.IsVisited;
-
-            if (!otherVisited) continue;
-
-            double totalCost = newCost + childNode.Cost;
-            if (totalCost < bestPathLength)
+            else if (newCost < childNode.GetCost(isFront))
             {
-                bestPathLength = totalCost;
-                cross = current;
+                childState.SetCost(newCost, isFront);
+                childState.SetParent(current, isFront);
             }
         }
-        Print(queue, current, isFront);
+        Print(queue.UnorderedItems.Select(o => o.Element).ToList(), current, isFront);
     }
 
-    public static void DoubleDijkstraAlgo(ref DNode start, ref DNode end)
+    public static void DoubleDijkstraAlgo(ref BiNode start, ref BiNode end)
     {
-        HashSet<DNode> queueFront = new();
-        HashSet<DNode> queueBack = new();
+        PriorityQueue<BiNode,double> queueFront = new();
+        PriorityQueue<BiNode,double> queueBack = new();
+        HashSet<BiNode> visitedFront = new();
+        HashSet<BiNode> visitedBack = new();
 
         start.Cost = 0;
-        queueFront.Add(start);
+        queueFront.Enqueue(start, 0);
         
-        end.Cost = 0;
-        queueBack.Add(end);
+        end.CostBack = 0;
+        queueBack.Enqueue(end, 0);
 
-        DNode? crossNode = null;
+        BiNode? crossNode = null;
         double bestPathLength = double.MaxValue;
 
         while (queueFront.Count > 0 || queueBack.Count > 0)
         {
-            Step(ref queueFront, ref crossNode, ref bestPathLength);
-            /*if (crossNode != null) break;*/
-            Step(ref queueBack, ref crossNode, ref bestPathLength, false);
-            /*if (crossNode != null) break;*/
+
+            Step(ref queueFront, ref visitedFront,ref crossNode, ref bestPathLength);
+            Step(ref queueBack, ref visitedBack,ref crossNode, ref bestPathLength, false);
+
+            queueFront.TryPeek(out _, out var minFront);
+            queueBack.TryPeek(out _, out var minBack);
+
+
+            /*if (crossNode != null && bestPathLength <= minFront + minBack)
+            {
+                break;
+            }*/
         }
         if (crossNode == null) return;
-        crossNode.ToEnd();
-        Console.WriteLine();
+
+        QueueExtensions.Reconstruct(ref crossNode, end);
     }
 }

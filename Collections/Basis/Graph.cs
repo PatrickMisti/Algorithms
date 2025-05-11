@@ -34,6 +34,7 @@ public abstract class Graph<T> where T : BaseNode
     {
         var path = new List<T>();
         var current = End;
+        Start!.Parent = null!;
 
         while (current != null)
         {
