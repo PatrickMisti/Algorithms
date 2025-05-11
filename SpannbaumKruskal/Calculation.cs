@@ -38,19 +38,19 @@ internal class Calculation
         }
     }
 
-    private static Node Find(Node node)
-    {
-        if (Parent[node] != node)
-            Parent[node] = Find(Parent[node]);
-        return Parent[node];
-    }
-
     private static void Bind(Node node1, Node node2)
     {
         var root1 = Find(node1);
         var root2 = Find(node2);
         if (root1 != root2)
             Parent[root1] = root2;
+    }
+
+    private static Node Find(Node node)
+    {
+        if (Parent[node] != node)
+            Parent[node] = Find(Parent[node]);
+        return Parent[node];
     }
 
     private static bool IsCycle(Node node1, Node node2)
