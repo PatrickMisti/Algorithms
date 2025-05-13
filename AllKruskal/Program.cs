@@ -20,3 +20,9 @@ foreach (var r in result)
     
     Console.WriteLine($"Total cost: {cost}\n");
 }
+
+Console.WriteLine("Aufgabe b:");
+
+var isUnique = Calculation.IsMstUnique(Calculation.Fill(list), list, result.First());
+
+Console.WriteLine($"Der Pfad ist {(isUnique ? "" : "nicht ")}Einzigartig!");
