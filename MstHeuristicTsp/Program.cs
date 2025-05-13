@@ -6,4 +6,5 @@ Console.WriteLine("Hello, World!");
 
 var (nodes, edges) = Generator.CreateList();
 
+var result = Calculation.Calculate(edges);
 Calculation.Calculate(edges);

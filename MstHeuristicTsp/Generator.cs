@@ -34,10 +34,11 @@ internal class Generator
         };
 
         var edges = new List<Edge>();
+
         foreach (var (from, to, cost) in input)
         {
             edges.Add(new Edge(cost, nodes[from], nodes[to]));
-            edges.Add(new Edge(cost, nodes[to], nodes[from])); // ungerichtet
+            edges.Add(new Edge(cost, nodes[to], nodes[from]));
         }
 
         return (nodes.Select(i => i.Value).ToList(), edges);
