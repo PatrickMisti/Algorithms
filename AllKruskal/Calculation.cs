@@ -4,13 +4,11 @@ internal class Calculation
 {
     public static List<List<Edge>> Run(List<Edge> edges)
     {
-        var pq = new PriorityQueue<Edge, Edge>(edges.Select(e => (e, e)));
         var allResults = new List<List<Edge>>();
-        var nodes = Fill(edges);
+        var parent = MakeInitialParent(Fill(edges));
+        edges.Sort();
 
-        var parent = MakeInitialParent(nodes);
-
-        KruskalRecursive(pq, new List<Edge>(), parent, allResults, nodes.Count - 1);
+        KruskalRecursive(edges, new List<Edge>(), parent, ref allResults, parent.Count - 1);
 
         return allResults;
     }
@@ -36,56 +34,51 @@ internal class Calculation
         return parent;
     }
 
-    private static Node Find(Node node, Dictionary<Node, Node> parent)
+    private static void Bind(Node node1, Node node2, ref Dictionary<Node, Node> parent)
+    {
+        var root1 = Find(node1, ref parent);
+        var root2 = Find(node2, ref parent);
+        if (root1 != root2)
+            parent[root1] = root2;
+    }
+
+    private static Node Find(Node node, ref Dictionary<Node, Node> parent)
     {
         if (parent[node] != node)
-            parent[node] = Find(parent[node], parent);
+            parent[node] = Find(parent[node], ref parent);
         return parent[node];
     }
 
-    private static void Bind(Node a, Node b, Dictionary<Node, Node> parent)
-    {
-        var rootA = Find(a, parent);
-        var rootB = Find(b, parent);
-        if (rootA != rootB)
-            parent[rootA] = rootB;
-    }
-
-    private static bool IsCycle(Node node1, Node node2, Dictionary<Node, Node> parent)
-    {
-        var rootA = Find(node1, parent);
-        var rootB = Find(node2, parent);
-        return rootA == rootB;
-    }
+    private static bool IsCycle(Node node1, Node node2, ref Dictionary<Node, Node> parent) 
+        => Find(node1, ref parent) == Find(node2, ref parent);
+    
 
     private static void KruskalRecursive(
-        PriorityQueue<Edge, Edge> edges,
-        List<Edge> current,
+        List<Edge> edges,
+        List<Edge> result,
         Dictionary<Node, Node> parent,
-        List<List<Edge>> result,
+        ref List<List<Edge>> allResult,
         int targetEdgeCount)
     {
-        if (current.Count == targetEdgeCount)
+        if (result.Count == targetEdgeCount)
         {
-            result.Add(new (current));
+            allResult.Add([.. result]);
             return;
         }
 
-        var edgeSnapshot = edges.UnorderedItems.ToList();
-
-        for (int i = 0; i < edgeSnapshot.Count; i++)
+        for (int i = 0; i < edges.Count; i++)
         {
-            var edge = edgeSnapshot[i].Element;
-            var remaining = new PriorityQueue<Edge, Edge>(edgeSnapshot.Skip(i + 1).Select(x => (x.Element, x.Priority)));
+            var edge = edges[i];
+            var remaining = edges.Skip(i + 1).ToList();
 
-            if (IsCycle(edge.From, edge.To, parent)) continue;
+            if (IsCycle(edge.From, edge.To, ref parent)) continue;
 
             var newParent = new Dictionary<Node, Node>(parent);
-            Bind(edge.From, edge.To, newParent);
+            Bind(edge.From, edge.To, ref newParent);
 
-            current.Add(edge);
-            KruskalRecursive(remaining, current, newParent, result, targetEdgeCount);
-            current.Remove(current.Last()); // Backtrack
+            result.Add(edge);
+            KruskalRecursive(remaining, result, newParent, ref allResult, targetEdgeCount);
+            result.Remove(result.Last()); // Backtrack
         }
     }
 }
