@@ -69,4 +69,73 @@ internal class Calculation
     {
         return Find(node1) == Find(node2);
     }
+
+    public static void CombineNodeWithMst(ref List<Node> nodes, HashSet<Edge> mst)
+    {
+        foreach (var edge in mst)
+        {
+            var toIndex = nodes.IndexOf(edge.From);
+            nodes[toIndex].AddEdge(edge.To, edge.Cost);
+            var fromIndex = nodes.IndexOf(edge.To);
+            nodes[fromIndex].AddEdge(edge.From, edge.Cost);
+        }
+    }
+
+    public static Dictionary<Node, List<Node>> CreateDictionary(List<Node> nodes)
+    {
+        var dict = new Dictionary<Node, List<Node>>();
+        foreach (var node in nodes)
+        {
+            dict[node] = new List<Node>();
+            foreach (var edge in node.GetEdges())
+            {
+                dict[node].Add(edge.From);
+            }
+        }
+        return dict;
+    }
+
+    public static List<Node>? CreateEulerKreis(List<Node> nodes)
+    {
+        var localGraph = Calculation.CreateDictionary(nodes);
+        var eulerPath = new List<Node>();
+
+        void Hierholzer(Node node)
+        {
+            while (localGraph[node].Count > 0)
+            {
+                var next = localGraph[node][0];
+                localGraph[node].Remove(next);
+                localGraph[next].Remove(node);
+                Hierholzer(next);
+            }
+            eulerPath.Add(node);
+        }
+
+        var start = nodes.Find(x => x.Name == "Linz");
+        if (start == null)
+        {
+            Console.WriteLine("Start node not found");
+            return null;
+        }
+        Hierholzer(start);
+        eulerPath.Reverse();
+        return eulerPath;
+    }
+
+    public static List<Node>? CreateHamiltonKreis(List<Node>? eulerPath)
+    {
+        if (eulerPath == null)
+            return null;
+        var visited = new HashSet<Node>();
+        var hamiltonPath = new List<Node>();
+
+        foreach (var node in eulerPath)
+        {
+            if (visited.Add(node))
+                hamiltonPath.Add(node);
+        }
+
+        return hamiltonPath;
+    }
 }

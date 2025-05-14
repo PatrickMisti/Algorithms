@@ -2,7 +2,7 @@
 
 internal class Generator
 {
-    public static (List<Node>, List<Edge>) CreateList()
+    public static (List<Node>, List<Edge>, List<Edge>) CreateList()
     {
         var cityNames = new[] { "Wien", "Linz", "Hagenberg", "Graz", "Salzburg", "Steyr", "Wels" };
         var nodes = cityNames.ToDictionary(name => name, name => new Node(name));
@@ -34,13 +34,15 @@ internal class Generator
         };
 
         var edges = new List<Edge>();
+        var single = new List<Edge>();
 
         foreach (var (from, to, cost) in input)
         {
             edges.Add(new Edge(cost, nodes[from], nodes[to]));
+            single.Add(new Edge(cost, nodes[from], nodes[to]));
             edges.Add(new Edge(cost, nodes[to], nodes[from]));
         }
 
-        return (nodes.Select(i => i.Value).ToList(), edges);
+        return (nodes.Select(i => i.Value).ToList(), edges, single);
     }
 }
