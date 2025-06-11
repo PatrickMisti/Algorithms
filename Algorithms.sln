@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PageRank", "PageRank\PageRa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaximalFlow", "MaximalFlow\MaximalFlow.csproj", "{505C03D4-6D41-4234-93AA-F006E197B127}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinCut", "MinCut\MinCut.csproj", "{164A890A-0677-46D5-B32D-9C70E6F7A9C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{505C03D4-6D41-4234-93AA-F006E197B127}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{505C03D4-6D41-4234-93AA-F006E197B127}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{505C03D4-6D41-4234-93AA-F006E197B127}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164A890A-0677-46D5-B32D-9C70E6F7A9C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164A890A-0677-46D5-B32D-9C70E6F7A9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164A890A-0677-46D5-B32D-9C70E6F7A9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164A890A-0677-46D5-B32D-9C70E6F7A9C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +110,7 @@ Global
 		{24114F62-E509-4538-BDCA-B0EBB060F707} = {268B3ADD-4E3B-459F-8FC5-FFE00B14FB85}
 		{6F093DD4-083F-4E22-B972-22F69EC6D342} = {9DF4593C-25EF-48A7-A511-28604A03CF5C}
 		{505C03D4-6D41-4234-93AA-F006E197B127} = {9DF4593C-25EF-48A7-A511-28604A03CF5C}
+		{164A890A-0677-46D5-B32D-9C70E6F7A9C6} = {9DF4593C-25EF-48A7-A511-28604A03CF5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C4181E2C-E315-4E82-B46D-CA1E2E502A00}
