@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaximalFlow", "MaximalFlow\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinCut", "MinCut\MinCut.csproj", "{164A890A-0677-46D5-B32D-9C70E6F7A9C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gewichteter_PageRank", "Gewichteter_PageRank\Gewichteter_PageRank.csproj", "{E25FDD4F-6F89-39A6-6144-6DA7E2928D1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{164A890A-0677-46D5-B32D-9C70E6F7A9C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{164A890A-0677-46D5-B32D-9C70E6F7A9C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{164A890A-0677-46D5-B32D-9C70E6F7A9C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E25FDD4F-6F89-39A6-6144-6DA7E2928D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E25FDD4F-6F89-39A6-6144-6DA7E2928D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E25FDD4F-6F89-39A6-6144-6DA7E2928D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E25FDD4F-6F89-39A6-6144-6DA7E2928D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
