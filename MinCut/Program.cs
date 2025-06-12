@@ -22,7 +22,7 @@ int totalCutWeight = cut.Sum(e => e.Weight);
 
 Console.WriteLine("Minimum Cut Kanten, die Alice entfernen muss: ");
 foreach (var edge in cut)
-    Console.WriteLine($"Von {edge.From} - Zu {edge.To} Gewicht: {edge.Weight})");
+    Console.WriteLine($"Von {edge.From} - Zu {edge.To} Gewicht: {edge.Weight}");
 
 Console.WriteLine("Gesamtrisiko: " + totalCutWeight);
 
@@ -49,6 +49,6 @@ var bobResult = bobCut.Select(cutEdge =>
 
 Console.WriteLine("Cut Kanten, die Bob entfernen muss: ");
 foreach (var edge in bobResult)
-    Console.WriteLine($"Von {edge.From} - Zu {edge.To} Gewicht: {edge.Weight})");
+    Console.WriteLine($"Von {edge.From} - Zu {edge.To} Gewicht: {edge.Weight}");
 
 Console.WriteLine($"Gesamtrisiko: {bobResult.Sum(e => e.Weight)}");
