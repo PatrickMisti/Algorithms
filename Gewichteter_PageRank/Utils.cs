@@ -43,7 +43,7 @@ internal class Utils
                 }
             }
 
-            // Berechnung der Gesamtabwichung zum vorherigen Rank
+            // Berechnung der Gesamtabweichung zum vorherigen Rank
             double diff = 0;
             foreach (var n in nodes)
             {
